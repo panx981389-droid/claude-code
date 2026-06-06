@@ -1,0 +1,235 @@
+<mxfile host="app.diagrams.net" agent="Claude Code" version="24.0.0">
+  <diagram id="page-layers" name="1. Reasoning Layers">
+    <mxGraphModel dx="1050" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="rl-title" value="&lt;b&gt;Claude Code — Three Layers of Reasoning&lt;/b&gt;" style="text;html=1;align=center;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="320" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rl-l1box" value="&lt;b&gt;Layer 1 · NATIVE EXTENDED THINKING (engine)&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=none;strokeColor=#6c8ebf;verticalAlign=top;fontSize=12;fontColor=#1a5276;" vertex="1" parent="1">
+          <mxGeometry x="60" y="70" width="980" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="rl-cfg" value="&lt;b&gt;ThinkingConfig&lt;/b&gt;&lt;br&gt;adaptive | enabled | disabled&lt;br&gt;thinking.ts:11 · default :151 · init QueryEngine.ts:288" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="90" y="110" width="290" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="rl-budget" value="&lt;b&gt;Budget / model gates&lt;/b&gt;&lt;br&gt;modelSupportsThinking :91 · Adaptive :114&lt;br&gt;getMaxThinkingTokensForModel context.ts:233" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="405" y="110" width="300" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="rl-beta" value="&lt;b&gt;Beta headers&lt;/b&gt;&lt;br&gt;interleaved-thinking-2025-05-14&lt;br&gt;redact-thinking-2026-02-12&lt;br&gt;betas.ts:4 · added utils/betas.ts:225" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="730" y="110" width="280" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="rl-api" value="&lt;b&gt;API thinking param&lt;/b&gt;  claude.ts:1663 → :1789&lt;br&gt;adaptive (no budget)  OR  enabled{budget_tokens}&lt;br&gt;→ stream: thinking / redacted_thinking blocks (signature)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="250" y="195" width="560" height="55" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rl-l2box" value="&lt;b&gt;Layer 2 · INTERLEAVED-THINKING LOOP (the reasoning loop)&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=none;strokeColor=#9673a6;verticalAlign=top;fontSize=12;fontColor=#6a1b9a;" vertex="1" parent="1">
+          <mxGeometry x="60" y="300" width="980" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="rl-loop" value="think ──► tool_use ──► tool_result ──► think ──► …  (within one turn)&lt;br&gt;thinking blocks preserved across the assistant trajectory — query.ts:180&lt;br&gt;see Page 2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="120" y="340" width="860" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rl-l3box" value="&lt;b&gt;Layer 3 · PROMPT-DRIVEN REASONING (policy)&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=none;strokeColor=#82b366;verticalAlign=top;fontSize=12;fontColor=#1e7e34;" vertex="1" parent="1">
+          <mxGeometry x="60" y="450" width="980" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="rl-sysprompt" value="&lt;b&gt;System-prompt reasoning&lt;/b&gt;&lt;br&gt;working memory :796 · verify-before-complete :215&lt;br&gt;faithful reporting :237 · diagnose-before-retry :232" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="90" y="490" width="300" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="rl-triggers" value="&lt;b&gt;Triggers / effort&lt;/b&gt;&lt;br&gt;ultrathink keyword thinking.ts:30&lt;br&gt;effort axis effort.ts:178 (see Page 3)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="410" y="490" width="290" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="rl-macro" value="&lt;b&gt;Macro loops&lt;/b&gt;&lt;br&gt;plan mode · ultraplan · verification agent&lt;br&gt;compaction &amp;lt;analysis&amp;gt; (see Page 4)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="720" y="490" width="290" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rl-call" value="&lt;b&gt;Per-turn model call&lt;/b&gt;  query.ts:884  (system prompt + messages + tools + thinking + effort)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="250" y="660" width="560" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="re1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="rl-cfg" target="rl-api"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="re2" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="rl-budget" target="rl-api"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="re3" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="rl-beta" target="rl-api"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="re4" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="rl-api" target="rl-loop"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="re5" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="rl-loop" target="rl-call"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="re6" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;dashed=1;" edge="1" parent="1" source="rl-sysprompt" target="rl-call"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="re7" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;dashed=1;" edge="1" parent="1" source="rl-triggers" target="rl-call"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="re8" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;dashed=1;" edge="1" parent="1" source="rl-macro" target="rl-call"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="page-loop" name="2. Interleaved Thinking Loop">
+    <mxGraphModel dx="1050" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="950" pageHeight="850" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="il-title" value="&lt;b&gt;The Reasoning Loop — Interleaved Thinking within one turn&lt;/b&gt;" style="text;html=1;align=center;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="240" y="20" width="470" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="il-box" value="&lt;b&gt;assistant trajectory (one turn)&lt;/b&gt; — interleaved-thinking beta keeps thinking alive" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=none;strokeColor=#9673a6;verticalAlign=top;fontSize=11;fontColor=#6a1b9a;" vertex="1" parent="1">
+          <mxGeometry x="80" y="80" width="540" height="560" as="geometry" />
+        </mxCell>
+
+        <mxCell id="il-think" value="&lt;b&gt;think&lt;/b&gt;  (thinking / redacted_thinking block)&lt;br&gt;reason about current state" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="180" y="120" width="340" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="il-decide" value="emit tool_use?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="280" y="220" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="il-tool" value="&lt;b&gt;tool_use&lt;/b&gt;  →  (tool runs)  →  &lt;b&gt;tool_result&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="160" y="350" width="380" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="il-observe" value="&lt;b&gt;think again&lt;/b&gt;  — reason about the result&lt;br&gt;(prior thinking still in context — rule 3)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="180" y="450" width="340" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="il-answer" value="&lt;b&gt;final answer&lt;/b&gt; (text, no tool_use)  → turn ends" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="180" y="560" width="340" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="il-rules" value="&lt;b&gt;Rules of thinking&lt;/b&gt;  query.ts:180&lt;br&gt;&lt;br&gt;1. thinking block needs max_thinking_length &gt; 0&lt;br&gt;2. a thinking block may not be the last block&lt;br&gt;3. thinking preserved across the whole trajectory&lt;br&gt;(turn + tool_use + tool_result + next assistant)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;verticalAlign=top;fontSize=10;spacingLeft=8;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="660" y="120" width="260" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="il-compact" value="&lt;b&gt;Preserve under compaction&lt;/b&gt;&lt;br&gt;clear_thinking_20251015&lt;br&gt;apiMicrocompact.ts:77" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;align=left;verticalAlign=top;fontSize=10;spacingLeft=8;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="660" y="320" width="260" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="il-strip" value="&lt;b&gt;Strip on model fallback&lt;/b&gt;&lt;br&gt;signature is model-bound&lt;br&gt;stripSignatureBlocks messages.ts:5506&lt;br&gt;(query.ts:1167)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;align=left;verticalAlign=top;fontSize=10;spacingLeft=8;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="660" y="440" width="260" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ie1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="il-think" target="il-decide"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ie2" value="yes" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;fontSize=10;" edge="1" parent="1" source="il-decide" target="il-tool"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ie3" value="no" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;fontSize=10;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="il-decide" target="il-answer">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="590" y="260" /><mxPoint x="590" y="585" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="ie4" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="il-tool" target="il-observe"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ie5" value="loop — reason again" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;fontSize=10;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="il-observe" target="il-think">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="130" y="480" /><mxPoint x="130" y="150" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="ie6" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;dashed=1;" edge="1" parent="1" source="il-observe" target="il-answer"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="page-trigger" name="3. Trigger &amp; Config Resolution">
+    <mxGraphModel dx="1050" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="780" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="tg-title" value="&lt;b&gt;Trigger &amp; Config Resolution — how reasoning depth is chosen&lt;/b&gt;" style="text;html=1;align=center;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="320" y="20" width="470" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tg-session" value="&lt;b&gt;Session config (precedence, high → low)&lt;/b&gt;  main.tsx:2996&lt;br&gt;--thinking  &gt;  --max-thinking-tokens  &gt;  MAX_THINKING_TOKENS env  &gt;  settings.alwaysThinkingEnabled  &gt;  default adaptive" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;verticalAlign=top;fontSize=10;spacingLeft=8;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="60" y="80" width="600" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tg-kw" value="&lt;b&gt;Per-turn: &quot;ultrathink&quot; keyword&lt;/b&gt;&lt;br&gt;hasUltrathinkKeyword /\\bultrathink\\b/i  thinking.ts:30&lt;br&gt;gate isUltrathinkEnabled :20" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="720" y="80" width="320" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tg-config" value="&lt;b&gt;ThinkingConfig&lt;/b&gt;  thinking.ts:11&lt;br&gt;&lt;br&gt;adaptive  |  enabled{budgetTokens}  |  disabled" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="120" y="220" width="440" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tg-attach" value="&lt;b&gt;ultrathink_effort attachment&lt;/b&gt;  attachments.ts:1500&lt;br&gt;{ type:'ultrathink_effort', level:'high' }  · logEvent tengu_ultrathink" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="640" y="220" width="420" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tg-msg" value="&lt;b&gt;Injected per-turn prompt&lt;/b&gt;  messages.ts:4589 (in &amp;lt;system-reminder&amp;gt;)&lt;br&gt;&lt;br&gt;&quot;The user has requested reasoning effort level: high. Apply this to the current turn.&quot;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=left;verticalAlign=top;fontSize=10;spacingLeft=8;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="640" y="330" width="420" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tg-effort" value="&lt;b&gt;Effort axis (separate)&lt;/b&gt;  resolveAppliedEffort effort.ts:178&lt;br&gt;low | medium | high | xhigh | max&lt;br&gt;env &gt; appState &gt; model default" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="120" y="330" width="440" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tg-api" value="&lt;b&gt;API request params&lt;/b&gt;  claude.ts:1663 → :1789&lt;br&gt;thinking: adaptive | enabled{budget_tokens}   +   effort   +   beta headers" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="300" y="470" width="540" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tg-note" value="Thinking = how many reasoning tokens.  Effort = reasoning strategy/depth.  ultrathink nudges effort → high (it does NOT set ThinkingConfig directly)." style="text;html=1;align=left;fontSize=10;fontColor=#666666;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="60" y="560" width="1000" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="te1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="tg-session" target="tg-config"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="te2" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="tg-kw" target="tg-attach"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="te3" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="tg-attach" target="tg-msg"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="te4" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="tg-msg" target="tg-effort"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="te5" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="tg-config" target="tg-api"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="te6" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="tg-effort" target="tg-api"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="page-macro" name="4. Macro Reasoning Loops">
+    <mxGraphModel dx="1050" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1150" pageHeight="820" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="mc-title" value="&lt;b&gt;Macro Reasoning Loops — explore → plan → verify&lt;/b&gt;" style="text;html=1;align=center;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="360" y="20" width="430" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="mc-pmbox" value="&lt;b&gt;Plan mode loop&lt;/b&gt;  EnterPlanModeTool.ts:108" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=none;strokeColor=#6c8ebf;verticalAlign=top;fontSize=12;fontColor=#1a5276;" vertex="1" parent="1">
+          <mxGeometry x="50" y="70" width="540" height="330" as="geometry" />
+        </mxCell>
+        <mxCell id="mc-explore" value="&lt;b&gt;Explore&lt;/b&gt; codebase (read-only)&lt;br&gt;understand patterns · similar features" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="90" y="110" width="280" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="mc-tradeoff" value="&lt;b&gt;Consider approaches&lt;/b&gt; &amp; trade-offs&lt;br&gt;AskUserQuestion to clarify" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="90" y="180" width="280" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="mc-design" value="&lt;b&gt;Design&lt;/b&gt; concrete strategy → plan file" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="90" y="250" width="280" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="mc-exit" value="&lt;b&gt;ExitPlanMode&lt;/b&gt; (signals ready, not a question)&lt;br&gt;→ approval → implement → VerifyPlanExecution" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="90" y="310" width="280" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="mc-ultraplan" value="&lt;b&gt;UltraPlan strategies&lt;/b&gt;  prompt.ts:30&lt;br&gt;simple_plan (1-pass)&lt;br&gt;visual_plan (+diagram)&lt;br&gt;three_subagents_with_critique&lt;br&gt;(parallel explore + critique)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;verticalAlign=top;fontSize=10;spacingLeft=8;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="400" y="120" width="170" height="160" as="geometry" />
+        </mxCell>
+
+        <mxCell id="mc-vbox" value="&lt;b&gt;Verification loop&lt;/b&gt;  verificationAgent.ts:10 · contract prompts.ts:366" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=none;strokeColor=#b85450;verticalAlign=top;fontSize=12;fontColor=#a93226;" vertex="1" parent="1">
+          <mxGeometry x="630" y="70" width="480" height="330" as="geometry" />
+        </mxCell>
+        <mxCell id="mc-impl" value="&lt;b&gt;Implement&lt;/b&gt; (non-trivial change)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="690" y="110" width="360" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="mc-verify" value="&lt;b&gt;Verify — adversarially&lt;/b&gt;  &quot;try to break it / find the last 20%&quot;&lt;br&gt;concurrency · boundary · idempotency · orphan ops&lt;br&gt;must cite command output (not code-reading)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="690" y="170" width="360" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="mc-verdict" value="verdict?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="790" y="270" width="160" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="mc-pass" value="&lt;b&gt;PASS&lt;/b&gt; → spot-check, report" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="930" y="360" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="mc-fail" value="&lt;b&gt;FAIL&lt;/b&gt; → fix → resume verifier" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="630" y="360" width="190" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="mc-compact" value="&lt;b&gt;Compaction reasoning&lt;/b&gt;  compact/prompt.ts:19 / :61&lt;br&gt;text-only: &amp;lt;analysis&amp;gt; scratchpad (stripped) → &amp;lt;summary&amp;gt; (9 sections). Chronological re-trace of the whole conversation." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;verticalAlign=top;fontSize=10;spacingLeft=8;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="50" y="430" width="1060" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="me1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="mc-explore" target="mc-tradeoff"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="me2" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="mc-tradeoff" target="mc-design"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="me3" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="mc-design" target="mc-exit"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="me4" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="mc-impl" target="mc-verify"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="me5" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="mc-verify" target="mc-verdict"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="me6" value="PASS" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;fontSize=10;" edge="1" parent="1" source="mc-verdict" target="mc-pass"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="me7" value="FAIL" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;fontSize=10;" edge="1" parent="1" source="mc-verdict" target="mc-fail"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="me8" value="re-verify" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;fontSize=10;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="mc-fail" target="mc-impl">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="660" y="130" /></Array></mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
