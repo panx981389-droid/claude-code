@@ -1,0 +1,223 @@
+<mxfile host="app.diagrams.net" agent="Claude Code" version="24.0.0">
+  <diagram id="page-agent-loop" name="1. Agent Loop">
+    <mxGraphModel dx="1050" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1300" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="al-title" value="&lt;b&gt;Claude Code — Main Agent Loop&lt;/b&gt;&lt;br&gt;src/query.ts :: queryLoop()  (while true)" style="text;html=1;align=center;verticalAlign=middle;fontSize=15;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="240" y="20" width="380" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="al-start" value="User prompt" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="360" y="90" width="140" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="al-entry" value="&lt;b&gt;submitMessage() → query() → queryLoop()&lt;/b&gt;&lt;br&gt;QueryEngine.ts:217 · query.ts:275 / :392" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="300" y="160" width="260" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="al-loopbox" value="&lt;b&gt;TURN LOOP — while (true)&lt;/b&gt;  (query.ts:459)" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=none;strokeColor=#9673a6;verticalAlign=top;fontSize=11;fontColor=#6a1b9a;" vertex="1" parent="1">
+          <mxGeometry x="120" y="240" width="620" height="760" as="geometry" />
+        </mxCell>
+
+        <mxCell id="al-a" value="&lt;b&gt;1 · Compaction cascade&lt;/b&gt;&lt;br&gt;snip → microcompact → collapse → autocompact&lt;br&gt;query.ts:574 / :586 / :623 / :636" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="290" y="270" width="280" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="al-b" value="&lt;b&gt;2 · Assemble request&lt;/b&gt;&lt;br&gt;system prompt + context + tools&lt;br&gt;query.ts:632 (asSystemPrompt)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="290" y="360" width="280" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="al-c" value="&lt;b&gt;3 · callModel() — stream response&lt;/b&gt;&lt;br&gt;yield assistant msg · collect tool_use blocks&lt;br&gt;query.ts:884 · tool_use@:1064" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="290" y="450" width="280" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="al-d" value="&lt;b&gt;4 · Stop hooks&lt;/b&gt;  handleStopHooks()&lt;br&gt;query.ts:1542" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="290" y="540" width="280" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="al-e" value="tool_use blocks?&lt;br&gt;(needsFollowUp)&lt;br&gt;query.ts:1334" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="350" y="620" width="160" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="al-f" value="&lt;b&gt;5 · runTools() — execute tools&lt;/b&gt;&lt;br&gt;gather tool_result · tool-use summary&lt;br&gt;query.ts:1656 · summary@:1689" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="290" y="740" width="280" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="al-g" value="&lt;b&gt;6 · Attach for next turn&lt;/b&gt;&lt;br&gt;queued cmds · memory · skill/tool discovery&lt;br&gt;query.ts:1879–1939" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="290" y="830" width="280" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="al-h" value="needsFollowUp&lt;br&gt;&amp;&amp; turn &lt; maxTurns?&lt;br&gt;query.ts:2018" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="350" y="910" width="160" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="al-term" value="&lt;b&gt;return Terminal { reason }&lt;/b&gt;&lt;br&gt;completed:1632 · aborted:1323/1794&lt;br&gt;max_turns:2024 · prompt_too_long:1454 · model_error:1242" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="280" y="1030" width="300" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="al-loopnote" value="loop back&lt;br&gt;(continue, query.ts:2041)" style="text;html=1;align=center;fontSize=10;fontColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="600" width="100" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="al-start" target="al-entry"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="al-entry" target="al-a"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="al-a" target="al-b"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="al-b" target="al-c"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="al-c" target="al-d"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="al-d" target="al-e"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e7" value="yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;fontSize=10;" edge="1" parent="1" source="al-e" target="al-f"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e8" value="no (final answer)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;fontSize=10;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="al-e" target="al-term">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="650" y="665" /><mxPoint x="650" y="1065" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="al-f" target="al-g"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="al-g" target="al-h"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e11" value="no (max_turns)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;fontSize=10;" edge="1" parent="1" source="al-h" target="al-term"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e12" value="yes — next turn" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;fontSize=10;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="al-h" target="al-a">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="160" y="950" /><mxPoint x="160" y="300" /></Array></mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="page-sysprompt" name="2. System Prompt Assembly">
+    <mxGraphModel dx="1050" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="sp-title" value="&lt;b&gt;System Prompt Assembly (per turn)&lt;/b&gt;" style="text;html=1;align=center;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="380" y="20" width="340" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sp-fetch" value="&lt;b&gt;fetchSystemPromptParts()&lt;/b&gt;&lt;br&gt;src/utils/queryContext.ts:44" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="400" y="70" width="300" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sp-gsp" value="&lt;b&gt;getSystemPrompt()&lt;/b&gt;&lt;br&gt;src/constants/prompts.ts:409" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="60" y="170" width="300" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="sp-uc" value="&lt;b&gt;getUserContext()&lt;/b&gt;&lt;br&gt;src/context.ts:155" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="420" y="170" width="240" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="sp-sc" value="&lt;b&gt;getSystemContext()&lt;/b&gt;&lt;br&gt;src/context.ts:116" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="720" y="170" width="240" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sp-static" value="&lt;b&gt;Static sections (cacheable)&lt;/b&gt;&lt;br&gt;&lt;br&gt;• intro / identity / cyber-risk — :179&lt;br&gt;• system (tools, perms, hooks) — :190&lt;br&gt;• doing tasks / code style — :205&lt;br&gt;• actions (reversibility) — :249&lt;br&gt;• using your tools — :263&lt;br&gt;• output efficiency / tone — :383" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;verticalAlign=top;fontSize=10;spacingLeft=8;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="270" width="340" height="180" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sp-boundary" value="⎯⎯ SYSTEM_PROMPT_DYNAMIC_BOUNDARY ⎯⎯&lt;br&gt;cache split · prompts.ts:118" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="465" width="340" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sp-dynamic" value="&lt;b&gt;Dynamic sections (per-session)&lt;/b&gt;&lt;br&gt;resolveSystemPromptSections() — systemPromptSections.ts:20&lt;br&gt;&lt;br&gt;session guidance · memory (memdir:272) · env info (:559)&lt;br&gt;language (:146) · output style (:155) · MCP instr (:532)&lt;br&gt;scratchpad (:752) · fn-result clearing (:776)&lt;br&gt;summarize-results (:796) · token budget (:499) · brief (:798)&lt;br&gt;hooks (:131) · system reminders (:135) · proactive (:815)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;verticalAlign=top;fontSize=10;spacingLeft=8;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="520" width="340" height="190" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sp-ucc" value="CLAUDE.md files (claudemd.ts)&lt;br&gt;+ current date&lt;br&gt;&lt;i&gt;prepended to messages&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="420" y="270" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="sp-scc" value="git status (getGitStatus, context.ts:36)&lt;br&gt;&lt;i&gt;appended to system prompt&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="720" y="270" width="240" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sp-eff" value="&lt;b&gt;buildEffectiveSystemPrompt()&lt;/b&gt;  systemPrompt.ts:41&lt;br&gt;priority: override → coordinator → agent → custom → default&lt;br&gt;(+ optional appendSystemPrompt)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="500" y="500" width="420" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sp-final" value="&lt;b&gt;asSystemPrompt(appendSystemContext(...))&lt;/b&gt;&lt;br&gt;query.ts:632" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="540" y="620" width="340" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sp-call" value="&lt;b&gt;callModel({ systemPrompt, messages, tools })&lt;/b&gt;&lt;br&gt;query.ts:884" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="560" y="720" width="300" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="se1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="sp-fetch" target="sp-gsp"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="se2" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="sp-fetch" target="sp-uc"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="se3" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="sp-fetch" target="sp-sc"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="se4" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="sp-gsp" target="sp-static"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="se5" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="sp-static" target="sp-boundary"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="se6" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="sp-boundary" target="sp-dynamic"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="se7" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="sp-uc" target="sp-ucc"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="se8" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="sp-sc" target="sp-scc"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="se9" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;dashed=1;" edge="1" parent="1" source="sp-dynamic" target="sp-eff"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="se10" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;dashed=1;" edge="1" parent="1" source="sp-ucc" target="sp-eff"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="se11" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="sp-eff" target="sp-final"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="se12" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="sp-scc" target="sp-final"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="se13" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="sp-final" target="sp-call"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="page-catalog" name="3. Prompt Catalog Map">
+    <mxGraphModel dx="1050" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="850" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="cat-title" value="&lt;b&gt;Prompt Catalog — where each prompt family plugs into the loop&lt;/b&gt;" style="text;html=1;align=center;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="380" y="15" width="440" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="cat-center" value="&lt;b&gt;Per-turn model call&lt;/b&gt;&lt;br&gt;callModel() — query.ts:884&lt;br&gt;&lt;br&gt;(sub-agents reuse this&lt;br&gt;engine via runAgent.ts:901)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="470" y="340" width="240" height="130" as="geometry" />
+        </mxCell>
+
+        <mxCell id="cat-core" value="&lt;b&gt;Core system prompt&lt;/b&gt;&lt;br&gt;getSystemPrompt() + sections&lt;br&gt;src/constants/prompts.ts:409" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="70" width="250" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cat-id" value="&lt;b&gt;Identity prefixes&lt;/b&gt;&lt;br&gt;DEFAULT_PREFIX / AGENT_SDK_*&lt;br&gt;src/constants/system.ts:10" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="160" width="250" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cat-ctx" value="&lt;b&gt;Context injection&lt;/b&gt;&lt;br&gt;git / CLAUDE.md / date&lt;br&gt;src/context.ts:36 / :116 / :155" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="250" width="250" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cat-tools" value="&lt;b&gt;Tool description prompts&lt;/b&gt;&lt;br&gt;Bash/Edit/Read/Grep/Web/...&lt;br&gt;packages/builtin-tools/.../prompt.ts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="340" width="250" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cat-sub" value="&lt;b&gt;Sub-agent system prompts&lt;/b&gt;&lt;br&gt;general/Explore/Plan/Verify/Guide&lt;br&gt;AgentTool/built-in/*.ts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="430" width="250" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cat-plan" value="&lt;b&gt;Plan mode prompts&lt;/b&gt;&lt;br&gt;EnterPlanMode / ExitPlanMode / Verify&lt;br&gt;builtin-tools/.../EnterPlanModeTool" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="520" width="250" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="cat-compact" value="&lt;b&gt;Compaction prompts&lt;/b&gt; (separate call)&lt;br&gt;BASE/PARTIAL_COMPACT_PROMPT&lt;br&gt;src/services/compact/prompt.ts:61" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="890" y="70" width="270" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cat-mem" value="&lt;b&gt;Memory &amp; extraction&lt;/b&gt;&lt;br&gt;memdir:272 · extractMemories/prompts.ts&lt;br&gt;SessionMemory · LocalMemoryRecall" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="890" y="160" width="270" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cat-coord" value="&lt;b&gt;Coordinator / teammate&lt;/b&gt;&lt;br&gt;getCoordinatorSystemPrompt() :111&lt;br&gt;TEAMMATE_SYSTEM_PROMPT_ADDENDUM" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="890" y="250" width="270" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cat-task" value="&lt;b&gt;Task / communication tools&lt;/b&gt;&lt;br&gt;TaskCreate/Update/List · SendMessage&lt;br&gt;AskUserQuestion · Brief" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="890" y="340" width="270" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cat-spec" value="&lt;b&gt;Specialized&lt;/b&gt;&lt;br&gt;Chrome · Buddy · Recap · MagicDocs&lt;br&gt;UltraPlan · autoDream · permission explainer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="890" y="430" width="270" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cat-proactive" value="&lt;b&gt;Proactive / autonomous&lt;/b&gt;&lt;br&gt;getProactiveSection() prompts.ts:815&lt;br&gt;(autonomous-agent path)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="890" y="520" width="270" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ce1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="cat-core" target="cat-center"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce2" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="cat-id" target="cat-center"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce3" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="cat-ctx" target="cat-center"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce4" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="cat-tools" target="cat-center"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce5" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="cat-sub" target="cat-center"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce6" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="cat-plan" target="cat-center"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce7" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;dashed=1;" edge="1" parent="1" source="cat-compact" target="cat-center"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce8" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="cat-mem" target="cat-center"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce9" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="cat-coord" target="cat-center"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce10" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="cat-task" target="cat-center"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce11" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="cat-spec" target="cat-center"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce12" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="cat-proactive" target="cat-center"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

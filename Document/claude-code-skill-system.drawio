@@ -1,0 +1,278 @@
+<mxfile host="app.diagrams.net" agent="Claude Code" version="24.0.0">
+  <diagram id="page-loading" name="1. Loading Pipeline">
+    <mxGraphModel dx="1050" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="ld-title" value="&lt;b&gt;Skill Loading Pipeline&lt;/b&gt;  —  disk / plugin / MCP  →  command registry" style="text;html=1;align=center;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="320" y="20" width="520" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ld-getcommands" value="&lt;b&gt;getCommands(cwd)&lt;/b&gt;&lt;br&gt;src/commands.ts:553&lt;br&gt;(aggregate · filter isEnabled · dedupe)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="420" y="70" width="300" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ld-getskills" value="&lt;b&gt;getSkills(cwd)&lt;/b&gt;  —  parallel loaders" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="420" y="170" width="300" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ld-skilldir" value="&lt;b&gt;getSkillDirCommands(cwd)&lt;/b&gt;&lt;br&gt;loadSkillsDir.ts:638" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="270" width="240" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ld-plugin" value="&lt;b&gt;getPluginSkills()&lt;/b&gt;&lt;br&gt;loadPluginCommands.ts:840&lt;br&gt;namespace plugin:skill" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="310" y="270" width="240" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ld-bundled" value="&lt;b&gt;getBundledSkills()&lt;/b&gt;&lt;br&gt;bundledSkills.ts&lt;br&gt;+ getBuiltinPluginSkillCommands()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="580" y="270" width="240" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ld-mcp" value="&lt;b&gt;fetchMcpSkillsForClient()&lt;/b&gt;&lt;br&gt;mcpSkills.ts:30&lt;br&gt;skill:// · mcp__srv__skill" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="850" y="270" width="220" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ld-dirs" value="&lt;b&gt;Disk skill dirs (precedence)&lt;/b&gt;&lt;br&gt;1 bundled&lt;br&gt;2 managed  {managed}/.claude/skills&lt;br&gt;3 user  ~/.claude/skills&lt;br&gt;4 project  .claude/skills (up to home)&lt;br&gt;5 --add-dir&lt;br&gt;6 legacy  .../commands/*.md" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;verticalAlign=top;fontSize=10;spacingLeft=8;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="370" width="240" height="150" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ld-parse" value="&lt;b&gt;Per-file parse&lt;/b&gt;&lt;br&gt;parseFrontmatter → parseSkillFrontmatterFields (:185)&lt;br&gt;→ createSkillCommand() (:270)&lt;br&gt;→ dedupe by realpath" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;verticalAlign=top;fontSize=10;spacingLeft=8;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="540" width="500" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ld-cond" value="&lt;b&gt;Conditional skills (paths:)&lt;/b&gt;&lt;br&gt;held pending in conditionalSkills map&lt;br&gt;&lt;br&gt;file touched →&lt;br&gt;discoverSkillDirsForPaths() :861&lt;br&gt;activateConditionalSkillsForPaths() :997&lt;br&gt;→ promote to dynamicSkills, emit skillsLoaded" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;align=left;verticalAlign=top;fontSize=10;spacingLeft=8;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="580" y="540" width="490" height="150" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ld-registry" value="&lt;b&gt;Command registry (PromptCommand[])&lt;/b&gt;  src/types/command.ts:25" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="360" y="720" width="420" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ld-surf1" value="Slash picker&lt;br&gt;getSlashCommandToolSkills() :663" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="120" y="810" width="260" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ld-surf2" value="Skill tool listing&lt;br&gt;getSkillToolCommands() :640" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="440" y="810" width="260" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ld-surf3" value="Skill search index&lt;br&gt;getSkillIndex() localSearch.ts:298" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="760" y="810" width="260" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="le1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="ld-getcommands" target="ld-getskills"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="le2" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="ld-getskills" target="ld-skilldir"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="le3" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="ld-getskills" target="ld-plugin"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="le4" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="ld-getskills" target="ld-bundled"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="le5" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="ld-getskills" target="ld-mcp"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="le6" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="ld-skilldir" target="ld-dirs"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="le7" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="ld-dirs" target="ld-parse"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="le8" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="ld-parse" target="ld-registry"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="le9" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;dashed=1;" edge="1" parent="1" source="ld-cond" target="ld-registry"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="le10" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="ld-plugin" target="ld-registry"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="le11" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="ld-bundled" target="ld-registry"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="le12" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="ld-mcp" target="ld-registry"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="le13" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="ld-registry" target="ld-surf1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="le14" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="ld-registry" target="ld-surf2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="le15" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="ld-registry" target="ld-surf3"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="page-discovery" name="2. Discovery &amp; Search">
+    <mxGraphModel dx="1050" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1150" pageHeight="950" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="dc-title" value="&lt;b&gt;Skill Discovery &amp; Search&lt;/b&gt;  (TF-IDF · proactive surfacing · auto-load)" style="text;html=1;align=center;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="320" y="20" width="520" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dc-user" value="User message" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="90" width="160" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dc-trig" value="&lt;b&gt;Two triggers&lt;/b&gt;&lt;br&gt;A · turn-zero  getTurnZeroSkillDiscovery() prefetch.ts:308 (blocking)&lt;br&gt;B · inter-turn  startSkillDiscoveryPrefetch() prefetch.ts:249 (background, query.ts:483)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;align=left;verticalAlign=top;fontSize=10;spacingLeft=8;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="280" y="80" width="560" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dc-norm" value="&lt;b&gt;Intent normalization&lt;/b&gt; (optional)&lt;br&gt;normalizeQueryIntent() intentNormalize.ts&lt;br&gt;Claude Haiku → 3–6 EN keywords&lt;br&gt;(ASCII-only skips Haiku · LRU cache)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="280" y="200" width="280" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dc-index" value="&lt;b&gt;TF-IDF index&lt;/b&gt;  getSkillIndex() localSearch.ts:298&lt;br&gt;&lt;br&gt;tokenize/stem :151 (CJK bigrams)&lt;br&gt;field weights name 3 · whenToUse 2 · desc 1 · tools 0.3&lt;br&gt;computeWeightedTf() :212" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;verticalAlign=top;fontSize=10;spacingLeft=8;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="620" y="200" width="430" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dc-search" value="&lt;b&gt;searchSkills(query, index)&lt;/b&gt;  localSearch.ts:383&lt;br&gt;cosineSimilarity() :249 · name-match bonus · min-score threshold → top-N" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="360" y="340" width="500" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dc-enrich" value="&lt;b&gt;enrichResultsForAutoLoad()&lt;/b&gt;  prefetch.ts:127&lt;br&gt;load full SKILL.md body for top matches · truncate" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="360" y="430" width="500" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dc-attach" value="&lt;b&gt;skill_discovery attachment&lt;/b&gt;  →  &amp;lt;system-reminder&amp;gt;&lt;br&gt;src/utils/messages.ts:3876" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="380" y="520" width="460" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dc-auto" value="&lt;b&gt;Auto-loaded&lt;/b&gt;  (score ≥ 0.30, ≤ 2 skills)&lt;br&gt;body injected inline in &amp;lt;loaded-skill&amp;gt; tags&lt;br&gt;&quot;apply now — do NOT call Skill again&quot;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=left;verticalAlign=top;fontSize=10;spacingLeft=8;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="180" y="620" width="350" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="dc-rec" value="&lt;b&gt;Recommended&lt;/b&gt;  (below threshold)&lt;br&gt;listed by name + description&lt;br&gt;model may invoke via Skill tool" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;verticalAlign=top;fontSize=10;spacingLeft=8;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="680" y="620" width="350" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dc-explicit" value="&lt;b&gt;DiscoverSkillsTool&lt;/b&gt; — explicit on-demand search&lt;br&gt;packages/builtin-tools/.../DiscoverSkillsTool  (calls getSkillIndex + searchSkills)" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="280" y="760" width="600" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dc-flags" value="&lt;b&gt;Gates&lt;/b&gt;: EXPERIMENTAL_SKILL_SEARCH (build) · SKILL_SEARCH_ENABLED (runtime) · SKILL_SEARCH_INTENT_ENABLED · AUTOLOAD_MIN_SCORE/LIMIT/MAX_CHARS · SKILL_LEARNING_ENABLED" style="text;html=1;align=left;fontSize=10;fontColor=#666666;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="60" y="850" width="1010" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="de1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="dc-user" target="dc-trig"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="de2" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="dc-trig" target="dc-norm"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="de3" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="dc-norm" target="dc-search"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="de4" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="dc-index" target="dc-search"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="de5" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="dc-search" target="dc-enrich"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="de6" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="dc-enrich" target="dc-attach"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="de7" value="≥ 0.30" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;fontSize=10;" edge="1" parent="1" source="dc-attach" target="dc-auto"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="de8" value="below" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;fontSize=10;" edge="1" parent="1" source="dc-attach" target="dc-rec"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="de9" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=none;dashed=1;" edge="1" parent="1" source="dc-explicit" target="dc-search"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="page-invocation" name="3. Invocation Flow">
+    <mxGraphModel dx="1050" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="iv-title" value="&lt;b&gt;Skill Invocation&lt;/b&gt;  —  the Skill tool&lt;br&gt;packages/builtin-tools/src/tools/SkillTool/SkillTool.ts" style="text;html=1;align=center;fontSize=15;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="280" y="20" width="380" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="iv-call" value="&lt;b&gt;Model calls Skill { skill, args }&lt;/b&gt;&lt;br&gt;input schema :295 · name 'Skill' :336&lt;br&gt;prompt: skills = slash commands; matching is a BLOCKING requirement (prompt.ts:174)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="270" y="90" width="360" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="iv-validate" value="&lt;b&gt;validateInput()&lt;/b&gt;  SkillTool.ts:358&lt;br&gt;exists? · not disable-model-invocation? · prompt-type?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="270" y="190" width="360" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="iv-perm" value="&lt;b&gt;checkPermissions()&lt;/b&gt;  SkillTool.ts:436&lt;br&gt;deny rules → allow rules → safe-property auto-allow → else ask user" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="270" y="270" width="360" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="iv-locate" value="&lt;b&gt;Locate&lt;/b&gt;  getAllCommands() + findCommand()  SkillTool.ts:81 / commands.ts:774" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="270" y="350" width="360" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="iv-route" value="context == 'fork' ?&lt;br&gt;SkillTool.ts:122" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="360" y="430" width="180" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="iv-fork" value="&lt;b&gt;FORK&lt;/b&gt;  executeForkedSkill()&lt;br&gt;SkillTool.ts:122&lt;br&gt;run in isolated sub-agent&lt;br&gt;(agent type from frontmatter)&lt;br&gt;own token budget; only result returns" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;verticalAlign=top;fontSize=10;spacingLeft=8;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="560" width="320" height="120" as="geometry" />
+        </mxCell>
+
+        <mxCell id="iv-inline" value="&lt;b&gt;INLINE&lt;/b&gt;  getMessagesForPromptSlashCommand()&lt;br&gt;processSlashCommand.tsx&lt;br&gt;&lt;br&gt;getPromptForCommand() loadSkillsDir.ts:344&lt;br&gt;• prepend skill base dir&lt;br&gt;• substituteArguments ($ARGUMENTS / named)&lt;br&gt;• ${CLAUDE_SKILL_DIR} · ${CLAUDE_SESSION_ID}&lt;br&gt;• run inline  !`…`  shell blocks" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;verticalAlign=top;fontSize=10;spacingLeft=8;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="500" y="560" width="360" height="160" as="geometry" />
+        </mxCell>
+
+        <mxCell id="iv-inject" value="&lt;b&gt;Inject into current conversation&lt;/b&gt;&lt;br&gt;• user messages isMeta:true&lt;br&gt;• command_permissions attachment (allowedTools/model)&lt;br&gt;• addInvokedSkill() → survives compaction" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=left;verticalAlign=top;fontSize=10;spacingLeft=8;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="500" y="760" width="360" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="iv-ctx" value="&lt;b&gt;contextModifier&lt;/b&gt;  SkillTool.ts:771&lt;br&gt;apply allowedTools allow-rules · model / effort override" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="270" y="920" width="360" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="iv-done" value="&lt;b&gt;Back to agent loop&lt;/b&gt;  (next turn applies the skill)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="300" y="1030" width="300" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ie1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="iv-call" target="iv-validate"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ie2" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="iv-validate" target="iv-perm"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ie3" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="iv-perm" target="iv-locate"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ie4" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="iv-locate" target="iv-route"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ie5" value="yes" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;fontSize=10;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="iv-route" target="iv-fork"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ie6" value="no (inline)" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;fontSize=10;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="iv-route" target="iv-inline"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ie7" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="iv-inline" target="iv-inject"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ie8" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="iv-inject" target="iv-ctx"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ie9" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="iv-fork" target="iv-ctx">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="200" y="900" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="ie10" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="iv-ctx" target="iv-done"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="page-model" name="4. Data Model &amp; Sources">
+    <mxGraphModel dx="1050" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1150" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="dm-title" value="&lt;b&gt;Skill Data Model &amp; Sources&lt;/b&gt;" style="text;html=1;align=center;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="420" y="20" width="320" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dm-file" value="&lt;b&gt;SKILL.md on disk&lt;/b&gt;&lt;br&gt;{skills-dir}/{name}/SKILL.md&lt;br&gt;+ bundled resources (scripts, docs)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="60" y="80" width="280" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dm-front" value="&lt;b&gt;YAML frontmatter&lt;/b&gt;  (parseSkillFrontmatterFields, loadSkillsDir.ts:185)&lt;br&gt;&lt;br&gt;name · description · when_to_use&lt;br&gt;allowed-tools · argument-hint / arguments&lt;br&gt;user-invocable · disable-model-invocation&lt;br&gt;model · effort · context (inline/fork) · agent&lt;br&gt;paths (conditional) · shell · hooks · version" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;verticalAlign=top;fontSize=10;spacingLeft=8;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="60" y="190" width="340" height="160" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dm-cmd" value="&lt;b&gt;PromptCommand&lt;/b&gt;  src/types/command.ts:25&lt;br&gt;&lt;br&gt;type:'prompt' · name · description · whenToUse&lt;br&gt;allowedTools · argNames · model · effort&lt;br&gt;userInvocable · disableModelInvocation · isHidden&lt;br&gt;source · loadedFrom · skillRoot · contentLength&lt;br&gt;context · agent · paths · hooks&lt;br&gt;getPromptForCommand(args, ctx) → ContentBlockParam[]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;align=left;verticalAlign=top;fontSize=10;spacingLeft=8;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="450" y="170" width="420" height="180" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dm-loaded" value="&lt;b&gt;LoadedFrom&lt;/b&gt;  loadSkillsDir.ts:67&lt;br&gt;bundled · skills · commands_DEPRECATED&lt;br&gt;plugin · managed · mcp" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;verticalAlign=top;fontSize=10;spacingLeft=8;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="920" y="190" width="200" height="120" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dm-sources" value="&lt;b&gt;Sources (precedence: first-wins by realpath)&lt;/b&gt;" style="text;html=1;align=left;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="410" width="500" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dm-s1" value="1 · Bundled — registerBundledSkill()&lt;br&gt;src/skills/bundledSkills.ts:43" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="60" y="440" width="330" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="dm-s2" value="2 · Managed/policy — {managed}/.claude/skills&lt;br&gt;loadSkillsDir.ts:640" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="410" y="440" width="330" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="dm-s3" value="3 · User — ~/.claude/skills&lt;br&gt;loadSkillsDir.ts:689" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="760" y="440" width="330" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="dm-s4" value="4 · Project — .claude/skills (up to home)&lt;br&gt;loadSkillsDir.ts:692" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="60" y="510" width="330" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="dm-s5" value="5 · Legacy commands — .../commands/*.md&lt;br&gt;loadSkillsDir.ts:566" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="410" y="510" width="330" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="dm-s6" value="6 · Plugin — plugin.skillsPath (plugin:skill)&lt;br&gt;loadPluginCommands.ts:840" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="760" y="510" width="330" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="dm-s7" value="7 · Built-in plugin skills&lt;br&gt;src/plugins/builtinPlugins.ts:108" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="60" y="580" width="330" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="dm-s8" value="8 · MCP — skill:// (mcp__srv__skill)&lt;br&gt;src/skills/mcpSkills.ts:30" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="410" y="580" width="330" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="dm-s9" value="9 · Dynamic/conditional (paths:) — runtime&lt;br&gt;loadSkillsDir.ts:861 / :997" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="760" y="580" width="330" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dm-note" value="user-invocable → slash picker (isHidden = !userInvocable) · !disable-model-invocation → Skill tool · described skills → search index" style="text;html=1;align=left;fontSize=10;fontColor=#666666;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="60" y="660" width="1030" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dme1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="dm-file" target="dm-front"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="dme2" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="dm-front" target="dm-cmd"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="dme3" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=none;dashed=1;" edge="1" parent="1" source="dm-cmd" target="dm-loaded"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
